@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-consumer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-consumer
+  template:
+    metadata:
+      labels:
+        app: kafka-consumer
+    spec:
+      containers:
+      - name: kafka-consumer
+        image: kafka_consumer:latest  # Replace with your built Docker image
+        imagePullPolicy: Never 
+        envFrom:
+        - configMapRef:
+            name: kafka-consumer-config
+        env:
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: "/app/service-account.json"
+        volumeMounts:
+        - name: bigquery-auth
+          mountPath: "/app/service-account.json"
+          subPath: service-account.json
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+      volumes:
+      - name: bigquery-auth
+        secret:
+          secretName: bigquery-service-account

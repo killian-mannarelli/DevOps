@@ -214,7 +214,7 @@ dags:
   ## configs for the dags PVC
   ## [FAQ] https://github.com/airflow-helm/charts/blob/main/charts/airflow/docs/faq/dags/load-dag-definitions.md
   persistence:
-    enabled: true
+    enabled: false
     
     ## NOTE: this is name of your existing volume
     existingClaim: airflow-dags
@@ -225,7 +225,13 @@ dags:
   ## configs for the git-sync sidecar
   ## [FAQ] https://github.com/airflow-helm/charts/blob/main/charts/airflow/docs/faq/dags/load-dag-definitions.md
   gitSync:
-    enabled: false
+    enabled: true
+    repo: "https://github.com/killian-mannarelli/DagGiit.git"
+    branch: "main"                        
+    subPath: ""                           
+    depth: 1                              
+    wait: true                           
+    interval: 60                         
 
 ###################################
 ## CONFIG | Kubernetes Ingress
