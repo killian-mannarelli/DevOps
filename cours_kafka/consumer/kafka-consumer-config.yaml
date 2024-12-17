@@ -3,6 +3,6 @@ kind: ConfigMap
 metadata:
   name: kafka-consumer-config
 data:
-  KAFKA_BOOTSTRAP_SERVERS: "10.244.0.8:9092"  # Kafka service in Kubernetes
+  KAFKA_BOOTSTRAP_SERVERS: "kafka-broker-service.airflow.svc.cluster.local:9092"  # Kafka service in Kubernetes
   KAFKA_TOPIC: "posts"  # Kafka topic name
   KAFKA_GROUP_ID: "consumer-group-1"  # Consumer group ID

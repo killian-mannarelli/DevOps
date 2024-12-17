@@ -2,6 +2,15 @@
 ## CONFIG | Airflow Configs
 ########################################
 airflow:
+  podTemplate:
+    extraVolumes:
+      - name: gcp-service-account-volume
+        secret:
+          secretName: gcp-service-account
+    extraVolumeMounts:
+      - name: gcp-service-account-volume
+        mountPath: /opt/airflow/dags/repo/credentials/
+        readOnly: true
   ## if we use legacy 1.10 airflow commands
   legacyCommands: false
 
